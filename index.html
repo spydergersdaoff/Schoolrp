@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Rp #FR - Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+        body {
+            background: url('https://tr.rbxcdn.com/180DAY-b67b4610ab958c6c9d6df8468b196951/768/432/Image/Webp/noFilter') no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #9ca3af;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* STOCK DISPLAY */
+        .stock-container {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+            border: 2px solid rgba(99, 102, 241, 0.4);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            animation: stockPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes stockPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+        }
+
+        .stock-info {
+            flex: 1;
+        }
+
+        .stock-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stock-value {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stock-value span {
+            font-size: 28px;
+        }
+
+        .stock-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .stock-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .stock-btn-add {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .stock-btn-add:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        .stock-btn-remove {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .stock-btn-remove:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(239, 68, 68, 0.3);
+        }
+
+        .stock-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .stock-btn-reset {
+            background: linear-gradient(135deg, #9ca3af, #6b7280);
+            color: white;
+            padding: 0 16px;
+            width: auto;
+            font-size: 12px;
+        }
+
+        /* Modal Stock */
+        .stock-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stock-modal.active {
+            display: flex;
+            animation: overlayFadeIn 0.3s ease-out;
+        }
+
+        @keyframes overlayFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .stock-modal-content {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-align: center;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.85) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .stock-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            border: none;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            color: #6b7280;
+            transition: all 0.3s ease;
+        }
+
+        .stock-modal-close:hover {
+            background: rgba(0, 0, 0, 0.12);
+            transform: rotate(90deg);
+        }
+
+        .stock-modal-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+
+        .stock-input-group {
+            margin-bottom: 20px;
+        }
+
+        .stock-input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .stock-input-group input {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .stock-input-group input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.15);
+        }
+
+        .stock-modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .stock-modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        .stock-modal-btn.confirm {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            color: white;
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
+        }
+
+        .stock-modal-btn.confirm:hover {
+            transform: translateY(-2px);
+        }
+
+        .stock-modal-btn.cancel {
+            background: #e5e7eb;
+            color: #6b7280;
+        }
+
+        .stock-modal-btn.cancel:hover {
+            background: #d1d5db;
+        }
+
+        /* Tarifs Banner */
+        .tarifs-banner {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(22, 163, 74, 0.12));
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .tarif-section h3 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .tarif-section.achat h3 {
+            color: #2563eb;
+        }
+
+        .tarif-section.vente h3 {
+            color: #16a34a;
+        }
+
+        .tarif-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .tarif-item {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .tarif-range {
+            color: #9ca3af;
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .tarif-price {
+            color: #1f2937;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+            background: rgba(203, 213, 225, 0.5);
+            padding: 6px;
+            border-radius: 14px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: transparent;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #2563eb;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Input */
+        input[type="number"] {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            color: #0f172a;
+            text-align: center;
+            margin-bottom: 20px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="number"]:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.15);
+            transform: translateY(-2px);
+        }
+
+        input[type="number"]::placeholder {
+            color: #d1d5db;
+        }
+
+        /* Boutons */
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        button.action-btn {
+            padding: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            border: none;
+            border-radius: 11px;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button.action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.4s ease;
+        }
+
+        button.action-btn:hover::before {
+            left: 100%;
+        }
+
+        button.action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        button.action-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-acheter {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .btn-vendre {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+        }
+
+        .btn-argent {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            grid-column: 1 / -1;
+        }
+
+        /* MODAL OVERLAY */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 999;
+            animation: overlayFadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 25px;
+            padding: 45px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.85) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.12);
+            color: #1f2937;
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+
+        .modal-title.achat {
+            color: #2563eb;
+        }
+
+        .modal-title.vente {
+            color: #16a34a;
+        }
+
+        .modal-result-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .modal-result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.8), rgba(255, 255, 255, 0.5));
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .modal-result-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .modal-result-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .modal-result-item.highlight {
+            background: linear-gradient(135deg, rgba(248, 249, 250, 1), rgba(255, 255, 255, 0.8));
+            border: 2px solid rgba(37, 99, 235, 0.2);
+            padding: 18px;
+        }
+
+        .modal-result-item.highlight .modal-result-value {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .modal-result-item.achat.highlight .modal-result-value {
+            color: #2563eb;
+        }
+
+        .modal-result-item.vente.highlight .modal-result-value {
+            color: #16a34a;
+        }
+
+        .modal-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .modal-action-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-action-btn.validate {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 8px 18px rgba(16, 185, 129, 0.3);
+        }
+
+        .modal-action-btn.validate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.4);
+        }
+
+        .modal-action-btn.cancel {
+            background: #e5e7eb;
+            color: #6b7280;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .modal-action-btn.cancel:hover {
+            background: #d1d5db;
+            transform: translateY(-2px);
+        }
+
+        .modal-action-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .stock-container {
+                flex-direction: column;
+            }
+
+            .stock-value {
+                font-size: 28px;
+            }
+
+            .tarifs-banner {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-argent {
+                grid-column: 1;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+                max-width: 90%;
+            }
+
+            .modal-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <!-- Header -->
+        <div class="header">
+            <h1>School Rp #FR - Calculator</h1>
+            <p class="subtitle">Jetons & Argent</p>
+        </div>
+
+        <!-- STOCK DISPLAY -->
+        <div class="stock-container">
+            <div class="stock-info">
+                <div class="stock-label">📦 Stock de jetons</div>
+                <div class="stock-value">
+                    <span>💎</span>
+                    <div id="stock-display">0</div>
+                </div>
+            </div>
+            <div class="stock-controls">
+                <button class="stock-btn stock-btn-add" onclick="ouvrirModalStock('add')" title="Ajouter des jetons">+</button>
+                <button class="stock-btn stock-btn-remove" onclick="ouvrirModalStock('remove')" title="Retirer des jetons">−</button>
+                <button class="stock-btn stock-btn-reset" onclick="resetStock()" title="Réinitialiser">Reset</button>
+            </div>
+        </div>
+
+        <!-- Modal Stock -->
+        <div id="stock-modal" class="stock-modal" onclick="fermerModalStock(event)">
+            <div class="stock-modal-content" onclick="event.stopPropagation()">
+                <button class="stock-modal-close" onclick="fermerModalStock()">×</button>
+                <div class="stock-modal-title" id="stock-modal-title">Ajouter des jetons</div>
+                <div class="stock-input-group">
+                    <label>Nombre de jetons</label>
+                    <input type="number" id="stock-input" placeholder="0" min="0" step="1">
+                </div>
+                <div class="stock-modal-buttons">
+                    <button class="stock-modal-btn confirm" onclick="confirmerStock()">Confirmer</button>
+                    <button class="stock-modal-btn cancel" onclick="fermerModalStock()">Annuler</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarifs Banner -->
+        <div class="tarifs-banner">
+            <div class="tarif-section achat">
+                <h3>📈 Achat (Barème)</h3>
+                <div class="tarif-grid">
+                    <div class="tarif-item">
+                        <div class="tarif-range">-100 u</div>
+                        <div class="tarif-price">25€</div>
+                    </div>
+                    <div class="tarif-item">
+                        <div class="tarif-range">100-750 u</div>
+                        <div class="tarif-price">30€</div>
+                    </div>
+                    <div class="tarif-item">
+                        <div class="tarif-range">750-1k u</div>
+                        <div class="tarif-price">31€</div>
+                    </div>
+                    <div class="tarif-item">
+                        <div class="tarif-range">+1000 u</div>
+                        <div class="tarif-price">32€</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarif-section vente">
+                <h3>📉 Vente (Fixe)</h3>
+                <div class="tarif-grid">
+                    <div class="tarif-item" style="grid-column: 1 / -1;">
+                        <div class="tarif-range">Tous les jetons</div>
+                        <div class="tarif-price" style="color: #16a34a;">32€/u</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="changerMode('jetons')">💳 Jetons → Argent</button>
+            <button class="tab-btn" onclick="changerMode('argent')">💵 Argent → Jetons</button>
+        </div>
+
+        <!-- Section 1: Jetons vers Argent -->
+        <div id="section-jetons" class="section active">
+            <input type="number" id="qte-jetons" placeholder="Quantité de jetons (ex: 150)" min="0" step="1">
+            <div class="buttons">
+                <button class="action-btn btn-acheter" onclick="calculerJetons('acheter')">📈 Acheter</button>
+                <button class="action-btn btn-vendre" onclick="calculerJetons('vendre')">📉 Vendre</button>
+            </div>
+        </div>
+
+        <!-- Section 2: Argent vers Jetons -->
+        <div id="section-argent" class="section">
+            <input type="number" id="montant-argent" placeholder="Montant en argent (ex: 5000)" min="0" step="1">
+            <button class="action-btn btn-argent" onclick="calculerArgent()">🎯 Calculer les jetons</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL OVERLAY RESULTAT -->
+<div id="modal-overlay" class="modal-overlay" onclick="fermerModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="fermerModal()">×</button>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div class="modal-icon" id="modal-icon">📈</div>
+            <div class="modal-title" id="modal-title">Résultat Achat</div>
+        </div>
+        <div class="modal-result-grid" id="modal-results"></div>
+        <div class="modal-actions">
+            <button class="modal-action-btn cancel" onclick="fermerModal()">❌ Annuler</button>
+            <button class="modal-action-btn validate" onclick="validerTransaction()" id="btn-valider">✓ Valider</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===== STOCK MANAGEMENT =====
+    let stockMode = '';
+
+    function chargerStock() {
+        let stock = localStorage.getItem('jetons-stock');
+        return stock ? parseInt(stock) : 0;
+    }
+
+    function sauvegarderStock(qte) {
+        localStorage.setItem('jetons-stock', qte);
+        afficherStock();
+    }
+
+    function afficherStock() {
+        let stock = chargerStock();
+        document.getElementById('stock-display').textContent = formaterK(stock);
+    }
+
+    function ouvrirModalStock(mode) {
+        stockMode = mode;
+        let title = mode === 'add' ? 'Ajouter des jetons' : 'Retirer des jetons';
+        document.getElementById('stock-modal-title').textContent = title;
+        document.getElementById('stock-input').value = '';
+        document.getElementById('stock-input').focus();
+        document.getElementById('stock-modal').classList.add('active');
+    }
+
+    function fermerModalStock(event) {
+        if (event && event.target.id !== 'stock-modal') return;
+        document.getElementById('stock-modal').classList.remove('active');
+    }
+
+    function confirmerStock() {
+        let input = document.getElementById('stock-input').value;
+        if (input === "" || isNaN(input)) {
+            alert("⚠️ Veuillez entrer une quantité valide !");
+            return;
+        }
+
+        let qte = parseInt(input);
+        if (qte < 0) {
+            alert("⚠️ La quantité ne peut pas être négative.");
+            return;
+        }
+
+        let stockActuel = chargerStock();
+
+        if (stockMode === 'add') {
+            stockActuel += qte;
+        } else {
+            if (qte > stockActuel) {
+                alert(`⚠️ Vous n'avez que ${stockActuel} jetons. Vous ne pouvez pas en retirer ${qte}.`);
+                return;
+            }
+            stockActuel -= qte;
+        }
+
+        sauvegarderStock(stockActuel);
+        fermerModalStock();
+    }
+
+    function resetStock() {
+        if (confirm("⚠️ Êtes-vous sûr de vouloir réinitialiser le stock à 0 ?")) {
+            sauvegarderStock(0);
+        }
+    }
+
+    // ===== TRANSACTION STATE =====
+    let transactionState = {
+        type: null,
+        quantite: 0,
+        montant: 0,
+        nouveauStock: 0
+    };
+
+    // ===== CALCULATEUR =====
+    function formaterK(n) {
+        if (n >= 1000) {
+            let val = n / 1000;
+            return val % 1 === 0 ? val + 'k' : val.toFixed(1) + 'k';
+        }
+        return n.toLocaleString('fr-FR');
+    }
+
+    function changerMode(mode) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+
+        if (mode === 'jetons') {
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            document.getElementById('section-jetons').classList.add('active');
+        } else {
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            document.getElementById('section-argent').classList.add('active');
+        }
+    }
+
+    function getPrixUnitaire(qte) {
+        if (qte < 100) return 25;
+        if (qte <= 750) return 30;
+        if (qte <= 1000) return 31;
+        return 32;
+    }
+
+    function ouvrirModal(titre, icon, mode, data, state) {
+        const overlay = document.getElementById('modal-overlay');
+        const titleEl = document.getElementById('modal-title');
+        const iconEl = document.getElementById('modal-icon');
+        const resultsEl = document.getElementById('modal-results');
+
+        // Stocker l'état de la transaction
+        if (state) {
+            transactionState = state;
+        }
+
+        titleEl.textContent = titre;
+        titleEl.classList.remove('achat', 'vente');
+        titleEl.classList.add(mode);
+        iconEl.textContent = icon;
+
+        resultsEl.innerHTML = data;
+        overlay.classList.add('active');
+    }
+
+    function validerTransaction() {
+        if (!transactionState.type) return;
+
+        let stock = chargerStock();
+        let nouveauStock = stock;
+
+        if (transactionState.type === 'achat') {
+            nouveauStock = stock + transactionState.quantite;
+        } else if (transactionState.type === 'vente') {
+            nouveauStock = stock - transactionState.quantite;
+        }
+
+        // Sauvegarder le nouveau stock
+        sauvegarderStock(nouveauStock);
+
+        // Afficher confirmation
+        alert(`✅ Transaction validée !\n\n${transactionState.type === 'achat' ? '+' : '-'} ${formaterK(transactionState.quantite)} jetons\nStock : ${formaterK(stock)} → ${formaterK(nouveauStock)}`);
+
+        // Fermer la modal et réinitialiser
+        fermerModal();
+        transactionState = { type: null, quantite: 0, montant: 0, nouveauStock: 0 };
+    }
+
+    function fermerModal(event) {
+        if (event && event.target.id !== 'modal-overlay') return;
+        document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            fermerModal();
+            fermerModalStock();
+        }
+    });
+
+    function calculerJetons(mode) {
+        let inputVal = document.getElementById('qte-jetons').value;
+
+        if (inputVal === "" || isNaN(inputVal)) {
+            alert("⚠️ Veuillez entrer une quantité valide !");
+            return;
+        }
+
+        let qte = parseInt(inputVal);
+        if (qte <= 0) {
+            alert("⚠️ La quantité doit être supérieure à 0.");
+            return;
+        }
+
+        let stock = chargerStock();
+
+        if (mode === 'acheter') {
+            let titre = "Résultat Achat";
+            let icon = "📈";
+            let modeName = "achat";
+            let prixUnit = getPrixUnitaire(qte);
+            let total = qte * prixUnit;
+            let qteFormatee = formaterK(qte);
+
+            let html = `
+                <div class="modal-result-item">
+                    <span class="modal-result-label">Quantité</span>
+                    <span class="modal-result-value">${qteFormatee}</span>
+                </div>
+                <div class="modal-result-item">
+                    <span class="modal-result-label">Prix unitaire</span>
+                    <span class="modal-result-value">${prixUnit}€</span>
+                </div>
+                <div class="modal-result-item highlight achat">
+                    <span class="modal-result-label">Total à payer</span>
+                    <span class="modal-result-value">${total.toLocaleString('fr-FR')}€</span>
+                </div>
+                <div class="modal-result-item">
+                    <span class="modal-result-label">Stock actuel</span>
+                    <span class="modal-result-value">${formaterK(stock)}</span>
+                </div>
+                <div class="modal-result-item">
+                    <span class="modal-result-label">Stock après achat</span>
+                    <span class="modal-result-value">${formaterK(stock + qte)}</span>
+                </div>
+            `;
+
+            let state = {
+                type: 'achat',
+                quantite: qte,
+                montant: total,
+                nouveauStock: stock + qte
+            };
+
+            ouvrirModal(titre, icon, modeName, html, state);
+        } else {
+            if (qte > stock) {
+                alert(`⚠️ Vous n'avez que ${stock} jetons. Vous ne pouvez pas en vendre ${qte}.`);
+                return;
+            }
+
+            let titre = "Résultat Vente";
+            let icon = "📉";
+            let modeName = "vente";
+            let total = qte * 32;
+            let qteFormatee = formaterK(qte);
+
+            let html = `
+                <div class="modal-result-item">
+                    <span class="modal-result-label">Quantité</span>
+                    <span class="modal-result-value">${qteFormatee}</span>
+                </div>
+                <div class="modal-result-item">
+                    <span class="modal-result-label">Prix unitaire</span>
+                    <span class="modal-result-value">32€</span>
+                </div>
+                <div class="modal-result-item highlight vente">
+                    <span class="modal-result-label">Total reçu</span>
+                    <span class="modal-result-value">${total.toLocaleString('fr-FR')}€</span>
+                </div>
+                <div class="modal-result-item">
+                    <span class="modal-result-label">Stock actuel</span>
+                    <span class="modal-result-value">${formaterK(stock)}</span>
+                </div>
+                <div class="modal-result-item">
+                    <span class="modal-result-label">Stock après vente</span>
+                    <span class="modal-result-value">${formaterK(stock - qte)}</span>
+                </div>
+            `;
+
+            let state = {
+                type: 'vente',
+                quantite: qte,
+                montant: total,
+                nouveauStock: stock - qte
+            };
+
+            ouvrirModal(titre, icon, modeName, html, state);
+        }
+    }
+
+    function calculerArgent() {
+        let inputVal = document.getElementById('montant-argent').value;
+
+        if (inputVal === "" || isNaN(inputVal)) {
+            alert("⚠️ Veuillez entrer un montant valide !");
+            return;
+        }
+
+        let budget = parseFloat(inputVal);
+        if (budget <= 0) {
+            alert("⚠️ Le montant doit être supérieur à 0.");
+            return;
+        }
+
+        // Calcul direct basé sur 32€ par unité
+        let prixUnit = 32;
+        let qteFinale = Math.floor(budget / prixUnit);
+        let coutReel = qteFinale * prixUnit;
+        let reste = budget - coutReel;
+        let qteFormatee = formaterK(qteFinale);
+        let stock = chargerStock();
+
+        let html = `
+            <div class="modal-result-item">
+                <span class="modal-result-label">Budget disponible</span>
+                <span class="modal-result-value">${budget.toLocaleString('fr-FR')}€</span>
+            </div>
+            <div class="modal-result-item">
+                <span class="modal-result-label">Prix unitaire</span>
+                <span class="modal-result-value">${prixUnit}€</span>
+            </div>
+            <div class="modal-result-item">
+                <span class="modal-result-label">Coût exact</span>
+                <span class="modal-result-value">${coutReel.toLocaleString('fr-FR')}€</span>
+            </div>
+            <div class="modal-result-item highlight achat">
+                <span class="modal-result-label">Jetons obtenus</span>
+                <span class="modal-result-value">${qteFormatee}</span>
+            </div>
+            <div class="modal-result-item">
+                <span class="modal-result-label">Monnaie restante</span>
+                <span class="modal-result-value">${reste.toLocaleString('fr-FR')}€</span>
+            </div>
+            <div class="modal-result-item">
+                <span class="modal-result-label">Stock actuel</span>
+                <span class="modal-result-value">${formaterK(stock)}</span>
+            </div>
+            <div class="modal-result-item">
+                <span class="modal-result-label">Stock après achat</span>
+                <span class="modal-result-value">${formaterK(stock + qteFinale)}</span>
+            </div>
+        `;
+
+        let state = {
+            type: 'achat',
+            quantite: qteFinale,
+            montant: coutReel,
+            nouveauStock: stock + qteFinale
+        };
+
+        ouvrirModal("Calcul Budget", "💵", "achat", html, state);
+    }
+
+    // Clavier
+    document.getElementById('qte-jetons')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') calculerJetons('acheter');
+    });
+
+    document.getElementById('montant-argent')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') calculerArgent();
+    });
+
+    document.getElementById('stock-input')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') confirmerStock();
+    });
+
+    // Initialisation
+    afficherStock();
+</script>
+
+</body>
+</html>
