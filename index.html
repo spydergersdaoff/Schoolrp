@@ -88,271 +88,6 @@
             }
         }
 
-        /* ========== LOGIN SCREEN ========== */
-        .login-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .login-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--card-border);
-            border-radius: 30px;
-            padding: 48px 32px;
-            box-shadow: var(--shadow);
-            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .login-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
-            border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
-            border: 2px solid rgba(99, 102, 241, 0.5);
-        }
-
-        .login-title {
-            font-size: 32px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-        }
-
-        .login-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 32px;
-            font-weight: 600;
-        }
-
-        .login-input-group {
-            margin-bottom: 20px;
-        }
-
-        .login-input-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 600;
-            border: 2px solid var(--input-border);
-            border-radius: 16px;
-            background: var(--input-bg);
-            color: var(--text-main);
-            outline: none;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .login-input:focus {
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.15);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 16px;
-            font-size: 14px;
-            font-weight: 700;
-            border: none;
-            border-radius: 14px;
-            cursor: pointer;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .login-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.4);
-        }
-
-        .login-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .login-loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .login-error {
-            color: var(--danger);
-            font-size: 13px;
-            margin-top: 12px;
-            padding: 12px;
-            background: rgba(239, 68, 68, 0.1);
-            border-radius: 8px;
-            display: none;
-        }
-
-        .login-error.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-
-        /* ========== CONFIRMATION SCREEN ========== */
-        .confirm-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .confirm-screen.active {
-            display: flex;
-        }
-
-        .confirm-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 32px;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: var(--shadow);
-            text-align: center;
-            animation: modalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .confirm-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: var(--text-main);
-        }
-
-        .confirm-profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 16px;
-            margin: 0 auto 20px;
-            border: 3px solid var(--accent-primary);
-            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
-            object-fit: cover;
-            background: var(--item-bg);
-        }
-
-        .confirm-username {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 6px;
-        }
-
-        .confirm-id {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        .confirm-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .confirm-btn {
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .confirm-btn.cancel {
-            background: var(--item-bg);
-            color: var(--text-muted);
-            border: 1px solid var(--card-border);
-        }
-
-        .confirm-btn.cancel:hover {
-            background: var(--card-border);
-            color: var(--text-main);
-        }
-
-        .confirm-btn.accept {
-            background: linear-gradient(135deg, var(--success), #059669);
-            color: white;
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
-        }
-
-        .confirm-btn.accept:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(16, 185, 129, 0.4);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes modalSlide {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* ========== MAIN APP ========== */
-        .main-content {
-            display: none;
-        }
-
-        .main-content.active {
-            display: block;
-        }
-
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -394,11 +129,6 @@
             letter-spacing: 1.5px;
         }
 
-        .top-bar-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
         .theme-toggle {
             background: var(--item-bg);
             border: 1px solid var(--card-border);
@@ -419,28 +149,6 @@
             transform: scale(1.05);
             border-color: var(--accent-primary);
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
-        }
-
-        .logout-btn {
-            background: var(--item-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .logout-btn:hover {
-            background: var(--danger);
-            border-color: var(--danger);
-            color: white;
         }
 
         /* STOCK DISPLAY */
@@ -635,6 +343,11 @@
             display: block;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* Inputs & Buttons */
         input[type="number"] {
             width: 100%;
@@ -798,6 +511,17 @@
             position: relative;
         }
 
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
         .modal-close {
             position: absolute;
             top: 16px;
@@ -808,16 +532,9 @@
             font-size: 28px;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
         }
 
         .modal-close:hover {
-            background: var(--item-bg);
             color: var(--text-main);
             transform: rotate(90deg);
         }
@@ -929,42 +646,15 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        .stock-modal-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
         .stock-modal-title {
             font-size: 20px;
             font-weight: 700;
+            margin-bottom: 24px;
             color: var(--text-main);
-        }
-
-        .stock-modal-close {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 28px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-        }
-
-        .stock-modal-close:hover {
-            background: var(--item-bg);
-            color: var(--text-main);
-            transform: rotate(90deg);
         }
 
         .stock-input-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .stock-modal button {
@@ -993,24 +683,6 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .login-card {
-                padding: 32px 24px;
-            }
-
-            .login-title {
-                font-size: 28px;
-            }
-
-            .login-input {
-                padding: 14px;
-                font-size: 16px;
-            }
-
-            .login-btn {
-                padding: 14px;
-                font-size: 13px;
-            }
-
             body {
                 padding: 12px;
             }
@@ -1043,7 +715,7 @@
                 font-size: 10px;
             }
 
-            .theme-toggle, .logout-btn {
+            .theme-toggle {
                 width: 44px;
                 height: 44px;
                 font-size: 18px;
@@ -1074,33 +746,43 @@
                 gap: 16px;
             }
 
-            .confirm-card {
-                width: 95%;
+            .tabs {
+                gap: 6px;
+                padding: 6px;
+            }
+
+            .tab-btn {
+                padding: 12px;
+                font-size: 12px;
+            }
+
+            input[type="number"] {
+                padding: 16px;
+                font-size: 16px;
+                margin-bottom: 16px;
+            }
+
+            .buttons {
+                gap: 10px;
+            }
+
+            button.action-btn {
+                padding: 16px;
+                font-size: 12px;
             }
 
             .modal-content {
+                padding: 24px;
                 width: 95%;
             }
 
             .stock-modal {
+                padding: 24px;
                 width: 95%;
             }
         }
 
         @media (max-width: 480px) {
-            .login-card {
-                padding: 24px 16px;
-            }
-
-            .login-title {
-                font-size: 24px;
-            }
-
-            .login-logo {
-                width: 64px;
-                height: 64px;
-            }
-
             .card {
                 padding: 20px 12px;
                 border-radius: 20px;
@@ -1115,12 +797,31 @@
                 font-size: 20px;
             }
 
+            h1 {
+                font-size: 28px;
+            }
+
             .stock-value {
                 font-size: 32px;
             }
 
             .stock-value span {
                 font-size: 24px;
+            }
+
+            .stock-btn {
+                min-width: 80px;
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .tarif-item {
+                padding: 10px;
+                font-size: 11px;
+            }
+
+            .tarif-price {
+                font-size: 12px;
             }
 
             input[type="number"] {
@@ -1133,150 +834,113 @@
                 font-size: 11px;
             }
 
-            .confirm-profile-pic {
-                width: 100px;
-                height: 100px;
+            .modal-result-item {
+                padding: 12px;
             }
 
-            .confirm-title {
-                font-size: 18px;
+            .modal-result-label {
+                font-size: 10px;
+            }
+
+            .modal-result-value {
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
-<div id="login-screen" class="login-screen">
-    <div class="login-card">
-        <img src="https://tr.rbxcdn.com/180DAY-54f44bb5f7cc1efc2296b7a59036ae35/150/150/Image/Webp/noFilter" alt="School RP Logo" class="login-logo">
-        <div class="login-title">School RP</div>
-        <div class="login-subtitle">Token Calculator</div>
-
-        <div class="login-input-group">
-            <label class="login-input-label">Pseudonyme Roblox</label>
-            <input type="text" id="username-input" class="login-input" placeholder="Entrez votre pseudo..." autocomplete="off">
+<div class="container">
+    <div class="card">
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="logo-section">
+                <img src="https://tr.rbxcdn.com/180DAY-54f44bb5f7cc1efc2296b7a59036ae35/150/150/Image/Webp/noFilter" alt="School RP Logo" class="logo-img">
+                <div class="logo-text">
+                    <h1>School RP</h1>
+                    <p>Token Calculator</p>
+                </div>
+            </div>
+            <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀️</button>
         </div>
 
-        <button class="login-btn" id="login-btn" onclick="connecterRoblox()">
-            🔗 Se connecter
-        </button>
-
-        <div class="login-error" id="login-error"></div>
-    </div>
-</div>
-
-<!-- CONFIRMATION SCREEN -->
-<div id="confirm-screen" class="confirm-screen">
-    <div class="confirm-card">
-        <div class="confirm-title">Confirmer votre identité</div>
-        <img id="confirm-pic" class="confirm-profile-pic" alt="Profile">
-        <div class="confirm-username" id="confirm-username"></div>
-        <div class="confirm-id" id="confirm-id"></div>
-        <div class="confirm-buttons">
-            <button class="confirm-btn cancel" onclick="retourLogin()">✕ Annuler</button>
-            <button class="confirm-btn accept" onclick="accepterLogin()">✓ Confirmer</button>
+        <!-- STOCK DISPLAY -->
+        <div class="stock-container">
+            <div class="stock-info">
+                <div class="stock-label">💎 Stock de jetons</div>
+                <div class="stock-value"><span>💰</span><span id="stock-display">0</span></div>
+            </div>
+            <div class="stock-controls">
+                <button class="stock-btn stock-btn-add" onclick="ouvrirModalStock('add')">➕ Ajouter</button>
+                <button class="stock-btn stock-btn-remove" onclick="ouvrirModalStock('remove')">➖ Retirer</button>
+                <button class="stock-btn stock-btn-reset" onclick="resetStock()">🔄 Reset</button>
+            </div>
         </div>
-    </div>
-</div>
 
-<!-- MAIN APP -->
-<div id="main-app" class="main-content">
-    <div class="container">
-        <div class="card">
-            <!-- TOP BAR -->
-            <div class="top-bar">
-                <div class="logo-section">
-                    <img src="https://tr.rbxcdn.com/180DAY-54f44bb5f7cc1efc2296b7a59036ae35/150/150/Image/Webp/noFilter" alt="School RP Logo" class="logo-img">
-                    <div class="logo-text">
-                        <h1>School RP</h1>
-                        <p>Token Calculator</p>
+        <!-- TARIFS BANNER -->
+        <div class="tarifs-banner">
+            <div class="tarif-section achat">
+                <h3>📊 Tarifs Achat</h3>
+                <div class="tarif-grid">
+                    <div class="tarif-item">
+                        <div class="tarif-range">&lt; 100u</div>
+                        <div class="tarif-price">25€</div>
                     </div>
-                </div>
-                <div class="top-bar-buttons">
-                    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀️</button>
-                    <button class="logout-btn" onclick="logout()" title="Déconnexion">🚪</button>
-                </div>
-            </div>
-
-            <!-- STOCK DISPLAY -->
-            <div class="stock-container">
-                <div class="stock-info">
-                    <div class="stock-label">💎 Stock de jetons</div>
-                    <div class="stock-value"><span>💰</span><span id="stock-display">0</span></div>
-                </div>
-                <div class="stock-controls">
-                    <button class="stock-btn stock-btn-add" onclick="ouvrirModalStock('add')">➕ Ajouter</button>
-                    <button class="stock-btn stock-btn-remove" onclick="ouvrirModalStock('remove')">➖ Retirer</button>
-                    <button class="stock-btn stock-btn-reset" onclick="resetStock()">🔄 Reset</button>
-                </div>
-            </div>
-
-            <!-- TARIFS BANNER -->
-            <div class="tarifs-banner">
-                <div class="tarif-section achat">
-                    <h3>📊 Tarifs Achat</h3>
-                    <div class="tarif-grid">
-                        <div class="tarif-item">
-                            <div class="tarif-range">&lt; 100u</div>
-                            <div class="tarif-price">25€</div>
-                        </div>
-                        <div class="tarif-item">
-                            <div class="tarif-range">100-750u</div>
-                            <div class="tarif-price">30€</div>
-                        </div>
-                        <div class="tarif-item">
-                            <div class="tarif-range">750-1k</div>
-                            <div class="tarif-price">31€</div>
-                        </div>
-                        <div class="tarif-item">
-                            <div class="tarif-range">&gt; 1000u</div>
-                            <div class="tarif-price">32€</div>
-                        </div>
+                    <div class="tarif-item">
+                        <div class="tarif-range">100-750u</div>
+                        <div class="tarif-price">30€</div>
                     </div>
-                </div>
-                <div class="tarif-section vente">
-                    <h3>💳 Tarifs Vente</h3>
-                    <div class="tarif-grid">
-                        <div class="tarif-item">
-                            <div class="tarif-range">Fixe</div>
-                            <div class="tarif-price">32€</div>
-                        </div>
-                        <div class="tarif-item">
-                            <div class="tarif-range">Unitaire</div>
-                            <div class="tarif-price">/u</div>
-                        </div>
+                    <div class="tarif-item">
+                        <div class="tarif-range">750-1k</div>
+                        <div class="tarif-price">31€</div>
+                    </div>
+                    <div class="tarif-item">
+                        <div class="tarif-range">&gt; 1000u</div>
+                        <div class="tarif-price">32€</div>
                     </div>
                 </div>
             </div>
-
-            <!-- TABS -->
-            <div class="tabs">
-                <button class="tab-btn active" onclick="changerMode('jetons')">💎 Jetons</button>
-                <button class="tab-btn" onclick="changerMode('argent')">💵 Budget</button>
-            </div>
-
-            <!-- SECTION JETONS -->
-            <div id="section-jetons" class="section active">
-                <input type="number" id="qte-jetons" placeholder="Quantité de jetons" min="1">
-                <div class="buttons">
-                    <button class="action-btn btn-acheter" onclick="calculerJetons('acheter')">🛒 Acheter</button>
-                    <button class="action-btn btn-vendre" onclick="calculerJetons('vendre')">💸 Vendre</button>
+            <div class="tarif-section vente">
+                <h3>💳 Tarifs Vente</h3>
+                <div class="tarif-grid">
+                    <div class="tarif-item">
+                        <div class="tarif-range">Fixe</div>
+                        <div class="tarif-price">32€</div>
+                    </div>
+                    <div class="tarif-item">
+                        <div class="tarif-range">Unitaire</div>
+                        <div class="tarif-price">/u</div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- SECTION ARGENT -->
-            <div id="section-argent" class="section">
-                <input type="number" id="montant-argent" placeholder="Montant en €" min="1">
-                <button class="action-btn btn-argent" onclick="calculerArgent()">💰 Calculer</button>
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="changerMode('jetons')">💎 Jetons</button>
+            <button class="tab-btn" onclick="changerMode('argent')">💵 Budget</button>
+        </div>
+
+        <!-- SECTION JETONS -->
+        <div id="section-jetons" class="section active">
+            <input type="number" id="qte-jetons" placeholder="Quantité de jetons" min="1">
+            <div class="buttons">
+                <button class="action-btn btn-acheter" onclick="calculerJetons('acheter')">🛒 Acheter</button>
+                <button class="action-btn btn-vendre" onclick="calculerJetons('vendre')">💸 Vendre</button>
             </div>
+        </div>
 
-            <!-- HISTORY -->
-            <div class="history-btn-container">
-                <button class="history-toggle" onclick="toggleHistory()">📜 Historique des transactions</button>
-                <div class="history-container" id="history-container">
-                    <div id="history-list"></div>
-                </div>
+        <!-- SECTION ARGENT -->
+        <div id="section-argent" class="section">
+            <input type="number" id="montant-argent" placeholder="Montant en €" min="1">
+            <button class="action-btn btn-argent" onclick="calculerArgent()">💰 Calculer</button>
+        </div>
+
+        <!-- HISTORY -->
+        <div class="history-btn-container">
+            <button class="history-toggle" onclick="toggleHistory()">📜 Historique des transactions</button>
+            <div class="history-container" id="history-container">
+                <div id="history-list"></div>
             </div>
         </div>
     </div>
@@ -1285,10 +949,7 @@
 <!-- MODAL STOCK -->
 <div id="stock-modal" class="stock-modal" onclick="fermerModalStock(event)">
     <div onclick="event.stopPropagation()">
-        <div class="stock-modal-top">
-            <div class="stock-modal-title" id="stock-modal-title">Ajouter des jetons</div>
-            <button class="stock-modal-close" onclick="fermerModalStock()">✕</button>
-        </div>
+        <div class="stock-modal-title" id="stock-modal-title">Ajouter des jetons</div>
         <div class="stock-input-group">
             <input type="number" id="stock-input" placeholder="Quantité" min="0">
         </div>
@@ -1299,7 +960,7 @@
 <!-- MODAL RESULTAT -->
 <div id="modal-overlay" class="modal-overlay" onclick="fermerModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <button class="modal-close" onclick="fermerModal()">✕</button>
+        <button class="modal-close" onclick="fermerModal()">×</button>
         <div class="modal-title" id="modal-title">Résultat</div>
         <div class="modal-result-grid" id="modal-results"></div>
         <div class="modal-actions">
@@ -1312,121 +973,7 @@
 <script>
     let stockMode = '';
     let transactionState = { type: null, quantite: 0, montant: 0 };
-    let currentUser = null;
 
-    // ===== AUTHENTIFICATION =====
-    async function connecterRoblox() {
-        const username = document.getElementById('username-input').value.trim();
-        if (!username) {
-            afficherErreur("Veuillez entrer un pseudonyme !");
-            return;
-        }
-
-        const btn = document.getElementById('login-btn');
-        btn.disabled = true;
-        btn.innerHTML = '<div class="login-loading"></div>';
-
-        try {
-            // Récupérer l'ID utilisateur via l'API Roblox
-            const searchRes = await fetch(`https://users.roblox.com/v1/users/search?keyword=${encodeURIComponent(username)}`, {
-                method: 'GET'
-            });
-            
-            if (!searchRes.ok) throw new Error('Erreur API');
-            const searchData = await searchRes.json();
-
-            if (!searchData.data || searchData.data.length === 0) {
-                afficherErreur("Utilisateur non trouvé !");
-                btn.disabled = false;
-                btn.textContent = "🔗 Se connecter";
-                return;
-            }
-
-            const user = searchData.data[0];
-            currentUser = {
-                id: user.id,
-                name: user.name
-            };
-
-            // Récupérer la photo de profil
-            try {
-                const profileRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar?userIds=${user.id}&size=420x420&format=Png&isCircular=false`);
-                const profileData = await profileRes.json();
-                
-                if (profileData.data && profileData.data.length > 0) {
-                    currentUser.avatar = profileData.data[0].imageUrl;
-                } else {
-                    currentUser.avatar = 'https://tr.rbxcdn.com/180DAY-54f44bb5f7cc1efc2296b7a59036ae35/150/150/Image/Webp/noFilter';
-                }
-            } catch (e) {
-                currentUser.avatar = 'https://tr.rbxcdn.com/180DAY-54f44bb5f7cc1efc2296b7a59036ae35/150/150/Image/Webp/noFilter';
-            }
-
-            // Afficher le modal de confirmation
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('confirm-screen').classList.add('active');
-            document.getElementById('confirm-username').textContent = user.name;
-            document.getElementById('confirm-id').textContent = `ID: ${user.id}`;
-            document.getElementById('confirm-pic').src = currentUser.avatar;
-
-        } catch (error) {
-            console.error('Erreur:', error);
-            afficherErreur("Erreur de connexion. Vérifiez votre pseudo !");
-            btn.disabled = false;
-            btn.textContent = "🔗 Se connecter";
-        }
-    }
-
-    function afficherErreur(msg) {
-        const errorDiv = document.getElementById('login-error');
-        errorDiv.textContent = msg;
-        errorDiv.classList.add('show');
-        setTimeout(() => errorDiv.classList.remove('show'), 3000);
-    }
-
-    function accepterLogin() {
-        if (!currentUser) return;
-        localStorage.setItem('jetons-user', JSON.stringify(currentUser));
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('confirm-screen').classList.remove('active');
-        document.getElementById('main-app').classList.add('active');
-        afficherStock();
-        chargerHistorique();
-    }
-
-    function retourLogin() {
-        document.getElementById('confirm-screen').classList.remove('active');
-        document.getElementById('login-screen').style.display = 'flex';
-        document.getElementById('username-input').value = '';
-        const btn = document.getElementById('login-btn');
-        btn.disabled = false;
-        btn.textContent = '🔗 Se connecter';
-        currentUser = null;
-    }
-
-    function logout() {
-        if (confirm("Voulez-vous vraiment vous déconnecter ?")) {
-            localStorage.removeItem('jetons-user');
-            localStorage.removeItem('jetons-stock');
-            localStorage.removeItem('jetons-hist');
-            location.reload();
-        }
-    }
-
-    // Vérifier si l'utilisateur est déjà connecté
-    window.addEventListener('load', () => {
-        const user = localStorage.getItem('jetons-user');
-        if (user) {
-            currentUser = JSON.parse(user);
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('confirm-screen').classList.remove('active');
-            document.getElementById('main-app').classList.add('active');
-            afficherStock();
-            chargerHistorique();
-        }
-    });
-
-    // ===== THEME =====
     function toggleTheme() {
         const html = document.documentElement;
         const btn = document.getElementById('theme-btn');
@@ -1443,12 +990,9 @@
 
     if (localStorage.getItem('theme') === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
-        if (document.getElementById('theme-btn')) {
-            document.getElementById('theme-btn').textContent = '🌙';
-        }
+        document.getElementById('theme-btn').textContent = '🌙';
     }
 
-    // ===== STOCK =====
     function chargerStock() {
         return parseInt(localStorage.getItem('jetons-stock') || '0');
     }
@@ -1505,7 +1049,6 @@
         }
     }
 
-    // ===== MODES =====
     function changerMode(mode) {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -1525,7 +1068,6 @@
         return 32;
     }
 
-    // ===== MODALS =====
     function ouvrirModal(titre, html, state) {
         document.getElementById('modal-title').textContent = titre;
         document.getElementById('modal-results').innerHTML = html;
@@ -1593,7 +1135,6 @@
         ouvrirModal("Calcul Budget", html, { type: 'achat', quantite: qte, montant: cout });
     }
 
-    // ===== HISTORIQUE =====
     function ajouterHistorique(texte) {
         let hist = JSON.parse(localStorage.getItem('jetons-hist') || '[]');
         hist.unshift({ texte, date: new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}) });
@@ -1612,13 +1153,14 @@
         document.getElementById('history-container').classList.toggle('active');
     }
 
-    // Keyboard shortcuts
     document.addEventListener('keypress', e => {
         if (e.key === 'Enter') {
             if (document.getElementById('stock-modal').classList.contains('active')) confirmerStock();
-            if (document.getElementById('username-input') === document.activeElement) connecterRoblox();
         }
     });
+
+    afficherStock();
+    chargerHistorique();
 </script>
 
 </body>
