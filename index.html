@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Rp #FR - Calculator</title>
+    <title>School RP - Ultimate Calculator</title>
     <style>
+        :root {
+            --bg-gradient: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 100%);
+            --card-bg: rgba(15, 23, 42, 0.75);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #6366f1;
+            --accent-secondary: #a855f7;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --input-bg: rgba(30, 41, 59, 0.8);
+            --input-border: rgba(255, 255, 255, 0.1);
+            --item-bg: rgba(30, 41, 59, 0.6);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-gradient: radial-gradient(circle at 50% 50%, #e0e7ff 0%, #f8fafc 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent-primary: #4f46e5;
+            --accent-secondary: #9333ea;
+            --success: #059669;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --input-bg: rgba(241, 245, 249, 0.9);
+            --input-border: rgba(0, 0, 0, 0.1);
+            --item-bg: rgba(241, 245, 249, 0.8);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,82 +48,412 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
         body {
-            background: url('https://i.ibb.co/4nLRPCGr/image.png') no-repeat center center fixed;
-            background-size: cover;
+            background: var(--bg-gradient);
             background-attachment: fixed;
             font-family: 'Poppins', sans-serif;
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 16px;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 25px;
-            padding: 40px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
-            animation: slideIn 0.6s ease-out;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 30px;
+            padding: 32px 24px;
+            box-shadow: var(--shadow);
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
-        .header {
+        /* ========== LOGIN SCREEN ========== */
+        .login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 30px;
+            padding: 48px 32px;
+            box-shadow: var(--shadow);
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 500px;
+            width: 100%;
             text-align: center;
-            margin-bottom: 25px;
         }
 
-        h1 {
-            font-size: 36px;
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+            border: 2px solid rgba(99, 102, 241, 0.5);
+        }
+
+        .login-title {
+            font-size: 32px;
             font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 8px;
-            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
         }
 
-        .subtitle {
+        .login-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-weight: 600;
+        }
+
+        .login-input-group {
+            margin-bottom: 20px;
+        }
+
+        .login-input-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border: 2px solid var(--input-border);
+            border-radius: 16px;
+            background: var(--input-bg);
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.15);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .login-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .login-error {
+            color: var(--danger);
             font-size: 13px;
-            color: #9ca3af;
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        /* ========== CONFIRMATION SCREEN ========== */
+        .confirm-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .confirm-screen.active {
+            display: flex;
+        }
+
+        .confirm-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: modalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .confirm-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-main);
+        }
+
+        .confirm-profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 16px;
+            margin: 0 auto 20px;
+            border: 3px solid var(--accent-primary);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+            object-fit: cover;
+            background: var(--item-bg);
+        }
+
+        .confirm-username {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .confirm-id {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .confirm-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .confirm-btn {
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .confirm-btn.cancel {
+            background: var(--item-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--card-border);
+        }
+
+        .confirm-btn.cancel:hover {
+            background: var(--card-border);
+            color: var(--text-main);
+        }
+
+        .confirm-btn.accept {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .confirm-btn.accept:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ========== MAIN APP ========== */
+        .main-content {
+            display: none;
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            gap: 16px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .logo-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            object-fit: cover;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+            border: 2px solid rgba(99, 102, 241, 0.5);
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text p {
+            font-size: 11px;
+            color: var(--text-muted);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
 
-        /* STOCK DISPLAY */
-        .stock-container {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
-            border: 2px solid rgba(99, 102, 241, 0.4);
-            border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 25px;
+        .top-bar-buttons {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            animation: stockPulse 2s ease-in-out infinite;
+            gap: 12px;
         }
 
-        @keyframes stockPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+        .theme-toggle {
+            background: var(--item-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-primary);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+        }
+
+        .logout-btn {
+            background: var(--item-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .logout-btn:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: white;
+        }
+
+        /* STOCK DISPLAY */
+        .stock-container {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
         }
 
         .stock-info {
@@ -98,47 +462,47 @@
 
         .stock-label {
             font-size: 12px;
-            font-weight: 600;
-            color: #6b7280;
+            font-weight: 700;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
         .stock-value {
-            font-size: 36px;
+            font-size: 48px;
             font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-main);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .stock-value span {
-            font-size: 28px;
+            font-size: 40px;
         }
 
         .stock-controls {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .stock-btn {
-            width: 50px;
-            height: 50px;
+            padding: 12px 16px;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 120px;
+            gap: 8px;
         }
 
         .stock-btn-add {
@@ -148,7 +512,7 @@
 
         .stock-btn-add:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 24px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
         }
 
         .stock-btn-remove {
@@ -158,243 +522,97 @@
 
         .stock-btn-remove:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 24px rgba(239, 68, 68, 0.3);
-        }
-
-        .stock-btn:active {
-            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
         }
 
         .stock-btn-reset {
-            background: linear-gradient(135deg, #9ca3af, #6b7280);
-            color: white;
-            padding: 0 16px;
-            width: auto;
+            background: var(--item-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 10px 14px;
             font-size: 12px;
+            min-width: auto;
+            flex: auto;
         }
 
-        /* Modal Stock */
-        .stock-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stock-modal.active {
-            display: flex;
-            animation: overlayFadeIn 0.3s ease-out;
-        }
-
-        @keyframes overlayFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .stock-modal-content {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 25px;
-            padding: 40px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            text-align: center;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: scale(0.85) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .stock-modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 35px;
-            height: 35px;
-            border: none;
-            background: rgba(0, 0, 0, 0.08);
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 20px;
-            color: #6b7280;
-            transition: all 0.3s ease;
-        }
-
-        .stock-modal-close:hover {
-            background: rgba(0, 0, 0, 0.12);
-            transform: rotate(90deg);
-        }
-
-        .stock-modal-title {
-            font-size: 24px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 20px;
-        }
-
-        .stock-input-group {
-            margin-bottom: 20px;
-        }
-
-        .stock-input-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: 700;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-        }
-
-        .stock-input-group input {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            text-align: center;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .stock-input-group input:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.15);
-        }
-
-        .stock-modal-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .stock-modal-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-        }
-
-        .stock-modal-btn.confirm {
-            background: linear-gradient(135deg, #6366f1, #a855f7);
+        .stock-btn-reset:hover {
+            background: var(--danger);
             color: white;
-            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
-        }
-
-        .stock-modal-btn.confirm:hover {
-            transform: translateY(-2px);
-        }
-
-        .stock-modal-btn.cancel {
-            background: #e5e7eb;
-            color: #6b7280;
-        }
-
-        .stock-modal-btn.cancel:hover {
-            background: #d1d5db;
+            border-color: var(--danger);
         }
 
         /* Tarifs Banner */
         .tarifs-banner {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(22, 163, 74, 0.12));
-            border: 2px solid rgba(37, 99, 235, 0.3);
-            border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 30px;
+            background: var(--item-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 28px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 24px;
         }
 
         .tarif-section h3 {
             font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-            color: #0f172a;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
         }
 
-        .tarif-section.achat h3 {
-            color: #2563eb;
-        }
-
-        .tarif-section.vente h3 {
-            color: #16a34a;
-        }
+        .tarif-section.achat h3 { color: var(--accent-primary); }
+        .tarif-section.vente h3 { color: var(--success); }
 
         .tarif-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
 
         .tarif-item {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 11px;
+            background: var(--card-bg);
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 12px;
             font-weight: 600;
-            color: #475569;
             text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--card-border);
         }
 
         .tarif-range {
-            color: #9ca3af;
+            color: var(--text-muted);
             font-size: 10px;
             margin-bottom: 4px;
         }
 
         .tarif-price {
-            color: #1f2937;
-            font-weight: 700;
-            font-size: 13px;
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 14px;
         }
 
         /* Tabs */
         .tabs {
             display: flex;
             gap: 8px;
-            margin-bottom: 25px;
-            background: rgba(203, 213, 225, 0.5);
-            padding: 6px;
-            border-radius: 14px;
+            margin-bottom: 28px;
+            background: var(--item-bg);
+            padding: 8px;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
         }
 
         .tab-btn {
             flex: 1;
-            padding: 12px 16px;
+            padding: 16px;
             font-size: 13px;
             font-weight: 700;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             background: transparent;
-            color: #6b7280;
+            color: var(--text-muted);
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -402,43 +620,31 @@
         }
 
         .tab-btn.active {
-            background: white;
-            color: #2563eb;
-            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
-            transform: translateY(-2px);
+            background: var(--card-bg);
+            color: var(--accent-primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
         }
 
-        /* Sections */
         .section {
             display: none;
-            animation: fadeIn 0.4s ease-in;
+            animation: fadeIn 0.4s ease;
         }
 
         .section.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Input */
+        /* Inputs & Buttons */
         input[type="number"] {
             width: 100%;
-            padding: 16px;
-            font-size: 16px;
+            padding: 18px;
+            font-size: 18px;
             font-weight: 600;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            background: white;
-            color: #0f172a;
+            border: 2px solid var(--input-border);
+            border-radius: 16px;
+            background: var(--input-bg);
+            color: var(--text-main);
             text-align: center;
             margin-bottom: 20px;
             outline: none;
@@ -447,16 +653,10 @@
         }
 
         input[type="number"]:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.15);
-            transform: translateY(-2px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.15);
         }
 
-        input[type="number"]::placeholder {
-            color: #d1d5db;
-        }
-
-        /* Boutons */
         .buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -464,211 +664,217 @@
         }
 
         button.action-btn {
-            padding: 14px;
+            padding: 18px;
             font-size: 13px;
             font-weight: 700;
             border: none;
-            border-radius: 11px;
+            border-radius: 14px;
             cursor: pointer;
             color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             font-family: 'Poppins', sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button.action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: left 0.4s ease;
-        }
-
-        button.action-btn:hover::before {
-            left: 100%;
         }
 
         button.action-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
         }
 
-        button.action-btn:active {
-            transform: translateY(-1px);
+        .btn-acheter { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+        .btn-vendre { background: linear-gradient(135deg, #16a34a, #15803d); }
+        .btn-argent { background: linear-gradient(135deg, #d97706, #b45309); grid-column: 1 / -1; }
+
+        /* History */
+        .history-btn-container {
+            margin-top: 28px;
+            text-align: center;
         }
 
-        .btn-acheter {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        .history-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
         }
 
-        .btn-vendre {
-            background: linear-gradient(135deg, #16a34a, #15803d);
+        .history-toggle:hover {
+            color: var(--accent-primary);
         }
 
-        .btn-argent {
-            background: linear-gradient(135deg, #d97706, #b45309);
-            grid-column: 1 / -1;
-        }
-
-        /* MODAL OVERLAY */
-        .modal-overlay {
+        .history-container {
+            margin-top: 16px;
+            background: var(--item-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 999;
-            animation: overlayFadeIn 0.3s ease-out;
+            animation: slideDown 0.3s ease;
         }
 
-        .modal-overlay.active {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .history-container.active {
+            display: block;
         }
 
-        .modal-content {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 25px;
-            padding: 45px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-        }
-
-        @keyframes modalSlideIn {
+        @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: scale(0.85) translateY(20px);
+                max-height: 0;
             }
             to {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                max-height: 500px;
             }
+        }
+
+        #history-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 13px;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-item span:first-child {
+            color: var(--text-main);
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .history-item span:last-child {
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: var(--shadow);
+            animation: modalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 16px;
+            right: 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             width: 40px;
             height: 40px;
-            border: none;
-            background: rgba(0, 0, 0, 0.08);
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 24px;
-            color: #6b7280;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 300;
+            border-radius: 8px;
         }
 
         .modal-close:hover {
-            background: rgba(0, 0, 0, 0.12);
-            color: #1f2937;
+            background: var(--item-bg);
+            color: var(--text-main);
             transform: rotate(90deg);
         }
 
         .modal-title {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 28px;
-            text-align: center;
-        }
-
-        .modal-title.achat {
-            color: #2563eb;
-        }
-
-        .modal-title.vente {
-            color: #16a34a;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-main);
         }
 
         .modal-result-grid {
             display: grid;
-            gap: 16px;
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
         .modal-result-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(135deg, rgba(248, 249, 250, 0.8), rgba(255, 255, 255, 0.5));
             padding: 16px;
-            border-radius: 14px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background: var(--item-bg);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+        }
+
+        .modal-result-item.highlight {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+            border: 2px solid rgba(99, 102, 241, 0.5);
         }
 
         .modal-result-label {
-            font-size: 14px;
+            font-size: 12px;
+            color: var(--text-muted);
             font-weight: 600;
-            color: #6b7280;
+            text-transform: uppercase;
         }
 
         .modal-result-value {
             font-size: 16px;
-            font-weight: 700;
-            color: #1f2937;
-        }
-
-        .modal-result-item.highlight {
-            background: linear-gradient(135deg, rgba(248, 249, 250, 1), rgba(255, 255, 255, 0.8));
-            border: 2px solid rgba(37, 99, 235, 0.2);
-            padding: 18px;
-        }
-
-        .modal-result-item.highlight .modal-result-value {
-            font-size: 20px;
             font-weight: 800;
-        }
-
-        .modal-result-item.achat.highlight .modal-result-value {
-            color: #2563eb;
-        }
-
-        .modal-result-item.vente.highlight .modal-result-value {
-            color: #16a34a;
-        }
-
-        .modal-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
+            color: var(--text-main);
         }
 
         .modal-actions {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-top: 28px;
         }
 
         .modal-action-btn {
-            flex: 1;
             padding: 14px;
             border: none;
             border-radius: 12px;
-            font-weight: 700;
             font-size: 13px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
@@ -676,198 +882,575 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        .modal-action-btn.validate {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            box-shadow: 0 8px 18px rgba(16, 185, 129, 0.3);
-        }
-
-        .modal-action-btn.validate:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.4);
-        }
-
         .modal-action-btn.cancel {
-            background: #e5e7eb;
-            color: #6b7280;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: var(--item-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--card-border);
         }
 
         .modal-action-btn.cancel:hover {
-            background: #d1d5db;
+            background: var(--card-border);
+            color: var(--text-main);
+        }
+
+        .modal-action-btn.validate {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .modal-action-btn.validate:hover {
             transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.4);
         }
 
-        .modal-action-btn:active {
-            transform: translateY(-1px);
+        /* STOCK MODAL */
+        .stock-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: var(--shadow);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
-        /* Responsive */
+        .stock-modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .stock-modal-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .stock-modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .stock-modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .stock-modal-close:hover {
+            background: var(--item-bg);
+            color: var(--text-main);
+            transform: rotate(90deg);
+        }
+
+        .stock-input-group {
+            margin-bottom: 20px;
+        }
+
+        .stock-modal button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stock-modal .confirm {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .stock-modal .confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .card {
-                padding: 25px 20px;
-                border-radius: 20px;
+            .login-card {
+                padding: 32px 24px;
             }
 
-            h1 {
+            .login-title {
                 font-size: 28px;
+            }
+
+            .login-input {
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            .login-btn {
+                padding: 14px;
+                font-size: 13px;
+            }
+
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 24px 16px;
+                border-radius: 24px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 24px;
+            }
+
+            .logo-section {
+                width: 100%;
+            }
+
+            .logo-img {
+                width: 56px;
+                height: 56px;
+            }
+
+            .logo-text h1 {
+                font-size: 24px;
+            }
+
+            .logo-text p {
+                font-size: 10px;
+            }
+
+            .theme-toggle, .logout-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
             }
 
             .stock-container {
-                flex-direction: column;
+                padding: 20px 16px;
+                gap: 16px;
             }
 
             .stock-value {
-                font-size: 28px;
+                font-size: 40px;
+            }
+
+            .stock-value span {
+                font-size: 32px;
+            }
+
+            .stock-btn {
+                min-width: 100px;
+                padding: 10px 12px;
+                font-size: 14px;
             }
 
             .tarifs-banner {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                padding: 20px;
+                gap: 16px;
             }
 
-            .buttons {
-                grid-template-columns: 1fr;
-            }
-
-            .btn-argent {
-                grid-column: 1;
+            .confirm-card {
+                width: 95%;
             }
 
             .modal-content {
-                padding: 30px 20px;
-                max-width: 90%;
+                width: 95%;
             }
 
-            .modal-title {
+            .stock-modal {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 24px 16px;
+            }
+
+            .login-title {
                 font-size: 24px;
+            }
+
+            .login-logo {
+                width: 64px;
+                height: 64px;
+            }
+
+            .card {
+                padding: 20px 12px;
+                border-radius: 20px;
+            }
+
+            .logo-img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .logo-text h1 {
+                font-size: 20px;
+            }
+
+            .stock-value {
+                font-size: 32px;
+            }
+
+            .stock-value span {
+                font-size: 24px;
+            }
+
+            input[type="number"] {
+                padding: 14px;
+                font-size: 14px;
+            }
+
+            button.action-btn {
+                padding: 14px;
+                font-size: 11px;
+            }
+
+            .confirm-profile-pic {
+                width: 100px;
+                height: 100px;
+            }
+
+            .confirm-title {
+                font-size: 18px;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="card">
-        <!-- Header -->
-        <div class="header">
-            <h1>School Rp #FR - Calculator</h1>
-            <p class="subtitle">Jetons & Argent</p>
+<!-- LOGIN SCREEN -->
+<div id="login-screen" class="login-screen">
+    <div class="login-card">
+        <img src="https://tr.rbxcdn.com/180DAY-54f44bb5f7cc1efc2296b7a59036ae35/150/150/Image/Webp/noFilter" alt="School RP Logo" class="login-logo">
+        <div class="login-title">School RP</div>
+        <div class="login-subtitle">Token Calculator</div>
+
+        <div class="login-input-group">
+            <label class="login-input-label">Pseudonyme Roblox</label>
+            <input type="text" id="username-input" class="login-input" placeholder="Entrez votre pseudo..." autocomplete="off">
         </div>
 
-        <!-- STOCK DISPLAY -->
-        <div class="stock-container">
-            <div class="stock-info">
-                <div class="stock-label">📦 Stock de jetons</div>
-                <div class="stock-value">
-                    <span>💎</span>
-                    <div id="stock-display">0</div>
-                </div>
-            </div>
-            <div class="stock-controls">
-                <button class="stock-btn stock-btn-add" onclick="ouvrirModalStock('add')" title="Ajouter des jetons">+</button>
-                <button class="stock-btn stock-btn-remove" onclick="ouvrirModalStock('remove')" title="Retirer des jetons">−</button>
-                <button class="stock-btn stock-btn-reset" onclick="resetStock()" title="Réinitialiser">Reset</button>
-            </div>
-        </div>
+        <button class="login-btn" id="login-btn" onclick="connecterRoblox()">
+            🔗 Se connecter
+        </button>
 
-        <!-- Modal Stock -->
-        <div id="stock-modal" class="stock-modal" onclick="fermerModalStock(event)">
-            <div class="stock-modal-content" onclick="event.stopPropagation()">
-                <button class="stock-modal-close" onclick="fermerModalStock()">×</button>
-                <div class="stock-modal-title" id="stock-modal-title">Ajouter des jetons</div>
-                <div class="stock-input-group">
-                    <label>Nombre de jetons</label>
-                    <input type="number" id="stock-input" placeholder="0" min="0" step="1">
-                </div>
-                <div class="stock-modal-buttons">
-                    <button class="stock-modal-btn confirm" onclick="confirmerStock()">Confirmer</button>
-                    <button class="stock-modal-btn cancel" onclick="fermerModalStock()">Annuler</button>
-                </div>
-            </div>
-        </div>
+        <div class="login-error" id="login-error"></div>
+    </div>
+</div>
 
-        <!-- Tarifs Banner -->
-        <div class="tarifs-banner">
-            <div class="tarif-section achat">
-                <h3>📈 Achat (Barème)</h3>
-                <div class="tarif-grid">
-                    <div class="tarif-item">
-                        <div class="tarif-range">-100 u</div>
-                        <div class="tarif-price">25€</div>
-                    </div>
-                    <div class="tarif-item">
-                        <div class="tarif-range">100-750 u</div>
-                        <div class="tarif-price">30€</div>
-                    </div>
-                    <div class="tarif-item">
-                        <div class="tarif-range">750-1k u</div>
-                        <div class="tarif-price">31€</div>
-                    </div>
-                    <div class="tarif-item">
-                        <div class="tarif-range">+1000 u</div>
-                        <div class="tarif-price">32€</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tarif-section vente">
-                <h3>📉 Vente (Fixe)</h3>
-                <div class="tarif-grid">
-                    <div class="tarif-item" style="grid-column: 1 / -1;">
-                        <div class="tarif-range">Tous les jetons</div>
-                        <div class="tarif-price" style="color: #16a34a;">32€/u</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tabs -->
-        <div class="tabs">
-            <button class="tab-btn active" onclick="changerMode('jetons')">💳 Jetons → Argent</button>
-            <button class="tab-btn" onclick="changerMode('argent')">💵 Argent → Jetons</button>
-        </div>
-
-        <!-- Section 1: Jetons vers Argent -->
-        <div id="section-jetons" class="section active">
-            <input type="number" id="qte-jetons" placeholder="Quantité de jetons (ex: 150)" min="0" step="1">
-            <div class="buttons">
-                <button class="action-btn btn-acheter" onclick="calculerJetons('acheter')">📈 Acheter</button>
-                <button class="action-btn btn-vendre" onclick="calculerJetons('vendre')">📉 Vendre</button>
-            </div>
-        </div>
-
-        <!-- Section 2: Argent vers Jetons -->
-        <div id="section-argent" class="section">
-            <input type="number" id="montant-argent" placeholder="Montant en argent (ex: 5000)" min="0" step="1">
-            <button class="action-btn btn-argent" onclick="calculerArgent()">🎯 Calculer les jetons</button>
+<!-- CONFIRMATION SCREEN -->
+<div id="confirm-screen" class="confirm-screen">
+    <div class="confirm-card">
+        <div class="confirm-title">Confirmer votre identité</div>
+        <img id="confirm-pic" class="confirm-profile-pic" alt="Profile">
+        <div class="confirm-username" id="confirm-username"></div>
+        <div class="confirm-id" id="confirm-id"></div>
+        <div class="confirm-buttons">
+            <button class="confirm-btn cancel" onclick="retourLogin()">✕ Annuler</button>
+            <button class="confirm-btn accept" onclick="accepterLogin()">✓ Confirmer</button>
         </div>
     </div>
 </div>
 
-<!-- MODAL OVERLAY RESULTAT -->
+<!-- MAIN APP -->
+<div id="main-app" class="main-content">
+    <div class="container">
+        <div class="card">
+            <!-- TOP BAR -->
+            <div class="top-bar">
+                <div class="logo-section">
+                    <img src="https://tr.rbxcdn.com/180DAY-54f44bb5f7cc1efc2296b7a59036ae35/150/150/Image/Webp/noFilter" alt="School RP Logo" class="logo-img">
+                    <div class="logo-text">
+                        <h1>School RP</h1>
+                        <p>Token Calculator</p>
+                    </div>
+                </div>
+                <div class="top-bar-buttons">
+                    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀️</button>
+                    <button class="logout-btn" onclick="logout()" title="Déconnexion">🚪</button>
+                </div>
+            </div>
+
+            <!-- STOCK DISPLAY -->
+            <div class="stock-container">
+                <div class="stock-info">
+                    <div class="stock-label">💎 Stock de jetons</div>
+                    <div class="stock-value"><span>💰</span><span id="stock-display">0</span></div>
+                </div>
+                <div class="stock-controls">
+                    <button class="stock-btn stock-btn-add" onclick="ouvrirModalStock('add')">➕ Ajouter</button>
+                    <button class="stock-btn stock-btn-remove" onclick="ouvrirModalStock('remove')">➖ Retirer</button>
+                    <button class="stock-btn stock-btn-reset" onclick="resetStock()">🔄 Reset</button>
+                </div>
+            </div>
+
+            <!-- TARIFS BANNER -->
+            <div class="tarifs-banner">
+                <div class="tarif-section achat">
+                    <h3>📊 Tarifs Achat</h3>
+                    <div class="tarif-grid">
+                        <div class="tarif-item">
+                            <div class="tarif-range">&lt; 100u</div>
+                            <div class="tarif-price">25€</div>
+                        </div>
+                        <div class="tarif-item">
+                            <div class="tarif-range">100-750u</div>
+                            <div class="tarif-price">30€</div>
+                        </div>
+                        <div class="tarif-item">
+                            <div class="tarif-range">750-1k</div>
+                            <div class="tarif-price">31€</div>
+                        </div>
+                        <div class="tarif-item">
+                            <div class="tarif-range">&gt; 1000u</div>
+                            <div class="tarif-price">32€</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tarif-section vente">
+                    <h3>💳 Tarifs Vente</h3>
+                    <div class="tarif-grid">
+                        <div class="tarif-item">
+                            <div class="tarif-range">Fixe</div>
+                            <div class="tarif-price">32€</div>
+                        </div>
+                        <div class="tarif-item">
+                            <div class="tarif-range">Unitaire</div>
+                            <div class="tarif-price">/u</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="changerMode('jetons')">💎 Jetons</button>
+                <button class="tab-btn" onclick="changerMode('argent')">💵 Budget</button>
+            </div>
+
+            <!-- SECTION JETONS -->
+            <div id="section-jetons" class="section active">
+                <input type="number" id="qte-jetons" placeholder="Quantité de jetons" min="1">
+                <div class="buttons">
+                    <button class="action-btn btn-acheter" onclick="calculerJetons('acheter')">🛒 Acheter</button>
+                    <button class="action-btn btn-vendre" onclick="calculerJetons('vendre')">💸 Vendre</button>
+                </div>
+            </div>
+
+            <!-- SECTION ARGENT -->
+            <div id="section-argent" class="section">
+                <input type="number" id="montant-argent" placeholder="Montant en €" min="1">
+                <button class="action-btn btn-argent" onclick="calculerArgent()">💰 Calculer</button>
+            </div>
+
+            <!-- HISTORY -->
+            <div class="history-btn-container">
+                <button class="history-toggle" onclick="toggleHistory()">📜 Historique des transactions</button>
+                <div class="history-container" id="history-container">
+                    <div id="history-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL STOCK -->
+<div id="stock-modal" class="stock-modal" onclick="fermerModalStock(event)">
+    <div onclick="event.stopPropagation()">
+        <div class="stock-modal-top">
+            <div class="stock-modal-title" id="stock-modal-title">Ajouter des jetons</div>
+            <button class="stock-modal-close" onclick="fermerModalStock()">✕</button>
+        </div>
+        <div class="stock-input-group">
+            <input type="number" id="stock-input" placeholder="Quantité" min="0">
+        </div>
+        <button class="confirm" onclick="confirmerStock()">Confirmer</button>
+    </div>
+</div>
+
+<!-- MODAL RESULTAT -->
 <div id="modal-overlay" class="modal-overlay" onclick="fermerModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <button class="modal-close" onclick="fermerModal()">×</button>
-        <div style="text-align: center; margin-bottom: 20px;">
-            <div class="modal-icon" id="modal-icon">📈</div>
-            <div class="modal-title" id="modal-title">Résultat Achat</div>
-        </div>
+        <button class="modal-close" onclick="fermerModal()">✕</button>
+        <div class="modal-title" id="modal-title">Résultat</div>
         <div class="modal-result-grid" id="modal-results"></div>
         <div class="modal-actions">
-            <button class="modal-action-btn cancel" onclick="fermerModal()">❌ Annuler</button>
-            <button class="modal-action-btn validate" onclick="validerTransaction()" id="btn-valider">✓ Valider</button>
+            <button class="modal-action-btn cancel" onclick="fermerModal()">Annuler</button>
+            <button class="modal-action-btn validate" onclick="validerTransaction()">Valider</button>
         </div>
     </div>
 </div>
 
 <script>
-    // ===== STOCK MANAGEMENT =====
     let stockMode = '';
+    let transactionState = { type: null, quantite: 0, montant: 0 };
+    let currentUser = null;
 
+    // ===== AUTHENTIFICATION =====
+    async function connecterRoblox() {
+        const username = document.getElementById('username-input').value.trim();
+        if (!username) {
+            afficherErreur("Veuillez entrer un pseudonyme !");
+            return;
+        }
+
+        const btn = document.getElementById('login-btn');
+        btn.disabled = true;
+        btn.innerHTML = '<div class="login-loading"></div>';
+
+        try {
+            // Récupérer l'ID utilisateur via l'API Roblox
+            const searchRes = await fetch(`https://users.roblox.com/v1/users/search?keyword=${encodeURIComponent(username)}`, {
+                method: 'GET'
+            });
+            
+            if (!searchRes.ok) throw new Error('Erreur API');
+            const searchData = await searchRes.json();
+
+            if (!searchData.data || searchData.data.length === 0) {
+                afficherErreur("Utilisateur non trouvé !");
+                btn.disabled = false;
+                btn.textContent = "🔗 Se connecter";
+                return;
+            }
+
+            const user = searchData.data[0];
+            currentUser = {
+                id: user.id,
+                name: user.name
+            };
+
+            // Récupérer la photo de profil
+            try {
+                const profileRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar?userIds=${user.id}&size=420x420&format=Png&isCircular=false`);
+                const profileData = await profileRes.json();
+                
+                if (profileData.data && profileData.data.length > 0) {
+                    currentUser.avatar = profileData.data[0].imageUrl;
+                } else {
+                    currentUser.avatar = 'https://tr.rbxcdn.com/180DAY-54f44bb5f7cc1efc2296b7a59036ae35/150/150/Image/Webp/noFilter';
+                }
+            } catch (e) {
+                currentUser.avatar = 'https://tr.rbxcdn.com/180DAY-54f44bb5f7cc1efc2296b7a59036ae35/150/150/Image/Webp/noFilter';
+            }
+
+            // Afficher le modal de confirmation
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('confirm-screen').classList.add('active');
+            document.getElementById('confirm-username').textContent = user.name;
+            document.getElementById('confirm-id').textContent = `ID: ${user.id}`;
+            document.getElementById('confirm-pic').src = currentUser.avatar;
+
+        } catch (error) {
+            console.error('Erreur:', error);
+            afficherErreur("Erreur de connexion. Vérifiez votre pseudo !");
+            btn.disabled = false;
+            btn.textContent = "🔗 Se connecter";
+        }
+    }
+
+    function afficherErreur(msg) {
+        const errorDiv = document.getElementById('login-error');
+        errorDiv.textContent = msg;
+        errorDiv.classList.add('show');
+        setTimeout(() => errorDiv.classList.remove('show'), 3000);
+    }
+
+    function accepterLogin() {
+        if (!currentUser) return;
+        localStorage.setItem('jetons-user', JSON.stringify(currentUser));
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('confirm-screen').classList.remove('active');
+        document.getElementById('main-app').classList.add('active');
+        afficherStock();
+        chargerHistorique();
+    }
+
+    function retourLogin() {
+        document.getElementById('confirm-screen').classList.remove('active');
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('username-input').value = '';
+        const btn = document.getElementById('login-btn');
+        btn.disabled = false;
+        btn.textContent = '🔗 Se connecter';
+        currentUser = null;
+    }
+
+    function logout() {
+        if (confirm("Voulez-vous vraiment vous déconnecter ?")) {
+            localStorage.removeItem('jetons-user');
+            localStorage.removeItem('jetons-stock');
+            localStorage.removeItem('jetons-hist');
+            location.reload();
+        }
+    }
+
+    // Vérifier si l'utilisateur est déjà connecté
+    window.addEventListener('load', () => {
+        const user = localStorage.getItem('jetons-user');
+        if (user) {
+            currentUser = JSON.parse(user);
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('confirm-screen').classList.remove('active');
+            document.getElementById('main-app').classList.add('active');
+            afficherStock();
+            chargerHistorique();
+        }
+    });
+
+    // ===== THEME =====
+    function toggleTheme() {
+        const html = document.documentElement;
+        const btn = document.getElementById('theme-btn');
+        if (html.getAttribute('data-theme') === 'dark') {
+            html.setAttribute('data-theme', 'light');
+            btn.textContent = '🌙';
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.setAttribute('data-theme', 'dark');
+            btn.textContent = '☀️';
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        if (document.getElementById('theme-btn')) {
+            document.getElementById('theme-btn').textContent = '🌙';
+        }
+    }
+
+    // ===== STOCK =====
     function chargerStock() {
-        let stock = localStorage.getItem('jetons-stock');
-        return stock ? parseInt(stock) : 0;
+        return parseInt(localStorage.getItem('jetons-stock') || '0');
     }
 
     function sauvegarderStock(qte) {
@@ -876,68 +1459,9 @@
     }
 
     function afficherStock() {
-        let stock = chargerStock();
-        document.getElementById('stock-display').textContent = formaterK(stock);
+        document.getElementById('stock-display').textContent = formaterK(chargerStock());
     }
 
-    function ouvrirModalStock(mode) {
-        stockMode = mode;
-        let title = mode === 'add' ? 'Ajouter des jetons' : 'Retirer des jetons';
-        document.getElementById('stock-modal-title').textContent = title;
-        document.getElementById('stock-input').value = '';
-        document.getElementById('stock-input').focus();
-        document.getElementById('stock-modal').classList.add('active');
-    }
-
-    function fermerModalStock(event) {
-        if (event && event.target.id !== 'stock-modal') return;
-        document.getElementById('stock-modal').classList.remove('active');
-    }
-
-    function confirmerStock() {
-        let input = document.getElementById('stock-input').value;
-        if (input === "" || isNaN(input)) {
-            alert("⚠️ Veuillez entrer une quantité valide !");
-            return;
-        }
-
-        let qte = parseInt(input);
-        if (qte < 0) {
-            alert("⚠️ La quantité ne peut pas être négative.");
-            return;
-        }
-
-        let stockActuel = chargerStock();
-
-        if (stockMode === 'add') {
-            stockActuel += qte;
-        } else {
-            if (qte > stockActuel) {
-                alert(`⚠️ Vous n'avez que ${stockActuel} jetons. Vous ne pouvez pas en retirer ${qte}.`);
-                return;
-            }
-            stockActuel -= qte;
-        }
-
-        sauvegarderStock(stockActuel);
-        fermerModalStock();
-    }
-
-    function resetStock() {
-        if (confirm("⚠️ Êtes-vous sûr de vouloir réinitialiser le stock à 0 ?")) {
-            sauvegarderStock(0);
-        }
-    }
-
-    // ===== TRANSACTION STATE =====
-    let transactionState = {
-        type: null,
-        quantite: 0,
-        montant: 0,
-        nouveauStock: 0
-    };
-
-    // ===== CALCULATEUR =====
     function formaterK(n) {
         if (n >= 1000) {
             let val = n / 1000;
@@ -946,10 +1470,45 @@
         return n.toLocaleString('fr-FR');
     }
 
-    function changerMode(mode) {
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+    function ouvrirModalStock(mode) {
+        stockMode = mode;
+        document.getElementById('stock-modal-title').textContent = mode === 'add' ? 'Ajouter des jetons' : 'Retirer des jetons';
+        document.getElementById('stock-input').value = '';
+        document.getElementById('stock-modal').classList.add('active');
+        document.getElementById('stock-input').focus();
+    }
 
+    function fermerModalStock(e) {
+        if (e && e.target.id && e.target.id !== 'stock-modal') return;
+        document.getElementById('stock-modal').classList.remove('active');
+    }
+
+    function confirmerStock() {
+        let val = parseInt(document.getElementById('stock-input').value);
+        if (isNaN(val) || val < 0) return alert("Quantité invalide !");
+        let stock = chargerStock();
+        if (stockMode === 'add') {
+            stock += val;
+        } else {
+            if (val > stock) return alert("Stock insuffisant !");
+            stock -= val;
+        }
+        sauvegarderStock(stock);
+        ajouterHistorique(`Stock ${stockMode === 'add' ? '+' : '-'}${val} jetons`);
+        fermerModalStock();
+    }
+
+    function resetStock() {
+        if (confirm("Réinitialiser le stock à 0 ?")) {
+            sauvegarderStock(0);
+            ajouterHistorique("Réinitialisation du stock");
+        }
+    }
+
+    // ===== MODES =====
+    function changerMode(mode) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         if (mode === 'jetons') {
             document.querySelectorAll('.tab-btn')[0].classList.add('active');
             document.getElementById('section-jetons').classList.add('active');
@@ -966,240 +1525,100 @@
         return 32;
     }
 
-    function ouvrirModal(titre, icon, mode, data, state) {
-        const overlay = document.getElementById('modal-overlay');
-        const titleEl = document.getElementById('modal-title');
-        const iconEl = document.getElementById('modal-icon');
-        const resultsEl = document.getElementById('modal-results');
+    // ===== MODALS =====
+    function ouvrirModal(titre, html, state) {
+        document.getElementById('modal-title').textContent = titre;
+        document.getElementById('modal-results').innerHTML = html;
+        transactionState = state;
+        document.getElementById('modal-overlay').classList.add('active');
+    }
 
-        // Stocker l'état de la transaction
-        if (state) {
-            transactionState = state;
-        }
-
-        titleEl.textContent = titre;
-        titleEl.classList.remove('achat', 'vente');
-        titleEl.classList.add(mode);
-        iconEl.textContent = icon;
-
-        resultsEl.innerHTML = data;
-        overlay.classList.add('active');
+    function fermerModal(e) {
+        if (e && e.target.id && e.target.id !== 'modal-overlay') return;
+        document.getElementById('modal-overlay').classList.remove('active');
     }
 
     function validerTransaction() {
         if (!transactionState.type) return;
-
         let stock = chargerStock();
-        let nouveauStock = stock;
-
-        if (transactionState.type === 'achat') {
-            nouveauStock = stock + transactionState.quantite;
-        } else if (transactionState.type === 'vente') {
-            nouveauStock = stock - transactionState.quantite;
-        }
-
-        // Sauvegarder le nouveau stock
-        sauvegarderStock(nouveauStock);
-
-        // Afficher confirmation
-        alert(`✅ Transaction validée !\n\n${transactionState.type === 'achat' ? '+' : '-'} ${formaterK(transactionState.quantite)} jetons\nStock : ${formaterK(stock)} → ${formaterK(nouveauStock)}`);
-
-        // Fermer la modal et réinitialiser
+        let newStock = transactionState.type === 'achat' ? stock + transactionState.quantite : stock - transactionState.quantite;
+        sauvegarderStock(newStock);
+        ajouterHistorique(`${transactionState.type === 'achat' ? 'Achat' : 'Vente'} de ${transactionState.quantite}u (${transactionState.montant}€)`);
         fermerModal();
-        transactionState = { type: null, quantite: 0, montant: 0, nouveauStock: 0 };
     }
-
-    function fermerModal(event) {
-        if (event && event.target.id !== 'modal-overlay') return;
-        document.getElementById('modal-overlay').classList.remove('active');
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            fermerModal();
-            fermerModalStock();
-        }
-    });
 
     function calculerJetons(mode) {
-        let inputVal = document.getElementById('qte-jetons').value;
-
-        if (inputVal === "" || isNaN(inputVal)) {
-            alert("⚠️ Veuillez entrer une quantité valide !");
-            return;
-        }
-
-        let qte = parseInt(inputVal);
-        if (qte <= 0) {
-            alert("⚠️ La quantité doit être supérieure à 0.");
-            return;
-        }
-
+        let val = parseInt(document.getElementById('qte-jetons').value);
+        if (isNaN(val) || val <= 0) return alert("Quantité invalide !");
         let stock = chargerStock();
 
         if (mode === 'acheter') {
-            let titre = "Résultat Achat";
-            let icon = "📈";
-            let modeName = "achat";
-            let prixUnit = getPrixUnitaire(qte);
-            let total = qte * prixUnit;
-            let qteFormatee = formaterK(qte);
-
+            let prix = getPrixUnitaire(val);
+            let total = val * prix;
             let html = `
-                <div class="modal-result-item">
-                    <span class="modal-result-label">Quantité</span>
-                    <span class="modal-result-value">${qteFormatee}</span>
-                </div>
-                <div class="modal-result-item">
-                    <span class="modal-result-label">Prix unitaire</span>
-                    <span class="modal-result-value">${prixUnit}€</span>
-                </div>
-                <div class="modal-result-item highlight achat">
-                    <span class="modal-result-label">Total à payer</span>
-                    <span class="modal-result-value">${total.toLocaleString('fr-FR')}€</span>
-                </div>
-                <div class="modal-result-item">
-                    <span class="modal-result-label">Stock actuel</span>
-                    <span class="modal-result-value">${formaterK(stock)}</span>
-                </div>
-                <div class="modal-result-item">
-                    <span class="modal-result-label">Stock après achat</span>
-                    <span class="modal-result-value">${formaterK(stock + qte)}</span>
-                </div>
+                <div class="modal-result-item"><span class="modal-result-label">Quantité</span><span class="modal-result-value">${formaterK(val)}</span></div>
+                <div class="modal-result-item"><span class="modal-result-label">Prix unitaire</span><span class="modal-result-value">${prix}€</span></div>
+                <div class="modal-result-item highlight"><span class="modal-result-label">Total à payer</span><span class="modal-result-value">${total.toLocaleString('fr-FR')}€</span></div>
+                <div class="modal-result-item"><span class="modal-result-label">Stock après</span><span class="modal-result-value">${formaterK(stock + val)}</span></div>
             `;
-
-            let state = {
-                type: 'achat',
-                quantite: qte,
-                montant: total,
-                nouveauStock: stock + qte
-            };
-
-            ouvrirModal(titre, icon, modeName, html, state);
+            ouvrirModal("Confirmation Achat", html, { type: 'achat', quantite: val, montant: total });
         } else {
-            if (qte > stock) {
-                alert(`⚠️ Vous n'avez que ${stock} jetons. Vous ne pouvez pas en vendre ${qte}.`);
-                return;
-            }
-
-            let titre = "Résultat Vente";
-            let icon = "📉";
-            let modeName = "vente";
-            let total = qte * 32;
-            let qteFormatee = formaterK(qte);
-
+            if (val > stock) return alert(`Stock insuffisant (${stock} max) !`);
+            let total = val * 32;
             let html = `
-                <div class="modal-result-item">
-                    <span class="modal-result-label">Quantité</span>
-                    <span class="modal-result-value">${qteFormatee}</span>
-                </div>
-                <div class="modal-result-item">
-                    <span class="modal-result-label">Prix unitaire</span>
-                    <span class="modal-result-value">32€</span>
-                </div>
-                <div class="modal-result-item highlight vente">
-                    <span class="modal-result-label">Total reçu</span>
-                    <span class="modal-result-value">${total.toLocaleString('fr-FR')}€</span>
-                </div>
-                <div class="modal-result-item">
-                    <span class="modal-result-label">Stock actuel</span>
-                    <span class="modal-result-value">${formaterK(stock)}</span>
-                </div>
-                <div class="modal-result-item">
-                    <span class="modal-result-label">Stock après vente</span>
-                    <span class="modal-result-value">${formaterK(stock - qte)}</span>
-                </div>
+                <div class="modal-result-item"><span class="modal-result-label">Quantité</span><span class="modal-result-value">${formaterK(val)}</span></div>
+                <div class="modal-result-item"><span class="modal-result-label">Prix unitaire</span><span class="modal-result-value">32€</span></div>
+                <div class="modal-result-item highlight"><span class="modal-result-label">Total reçu</span><span class="modal-result-value">${total.toLocaleString('fr-FR')}€</span></div>
+                <div class="modal-result-item"><span class="modal-result-label">Stock après</span><span class="modal-result-value">${formaterK(stock - val)}</span></div>
             `;
-
-            let state = {
-                type: 'vente',
-                quantite: qte,
-                montant: total,
-                nouveauStock: stock - qte
-            };
-
-            ouvrirModal(titre, icon, modeName, html, state);
+            ouvrirModal("Confirmation Vente", html, { type: 'vente', quantite: val, montant: total });
         }
     }
 
     function calculerArgent() {
-        let inputVal = document.getElementById('montant-argent').value;
-
-        if (inputVal === "" || isNaN(inputVal)) {
-            alert("⚠️ Veuillez entrer un montant valide !");
-            return;
-        }
-
-        let budget = parseFloat(inputVal);
-        if (budget <= 0) {
-            alert("⚠️ Le montant doit être supérieur à 0.");
-            return;
-        }
-
-        // Calcul direct basé sur 32€ par unité
-        let prixUnit = 32;
-        let qteFinale = Math.floor(budget / prixUnit);
-        let coutReel = qteFinale * prixUnit;
-        let reste = budget - coutReel;
-        let qteFormatee = formaterK(qteFinale);
+        let budget = parseFloat(document.getElementById('montant-argent').value);
+        if (isNaN(budget) || budget <= 0) return alert("Montant invalide !");
+        let qte = Math.floor(budget / 32);
+        let cout = qte * 32;
+        let reste = budget - cout;
         let stock = chargerStock();
 
         let html = `
-            <div class="modal-result-item">
-                <span class="modal-result-label">Budget disponible</span>
-                <span class="modal-result-value">${budget.toLocaleString('fr-FR')}€</span>
-            </div>
-            <div class="modal-result-item">
-                <span class="modal-result-label">Prix unitaire</span>
-                <span class="modal-result-value">${prixUnit}€</span>
-            </div>
-            <div class="modal-result-item">
-                <span class="modal-result-label">Coût exact</span>
-                <span class="modal-result-value">${coutReel.toLocaleString('fr-FR')}€</span>
-            </div>
-            <div class="modal-result-item highlight achat">
-                <span class="modal-result-label">Jetons obtenus</span>
-                <span class="modal-result-value">${qteFormatee}</span>
-            </div>
-            <div class="modal-result-item">
-                <span class="modal-result-label">Monnaie restante</span>
-                <span class="modal-result-value">${reste.toLocaleString('fr-FR')}€</span>
-            </div>
-            <div class="modal-result-item">
-                <span class="modal-result-label">Stock actuel</span>
-                <span class="modal-result-value">${formaterK(stock)}</span>
-            </div>
-            <div class="modal-result-item">
-                <span class="modal-result-label">Stock après achat</span>
-                <span class="modal-result-value">${formaterK(stock + qteFinale)}</span>
-            </div>
+            <div class="modal-result-item"><span class="modal-result-label">Budget</span><span class="modal-result-value">${budget.toLocaleString('fr-FR')}€</span></div>
+            <div class="modal-result-item"><span class="modal-result-label">Coût réel</span><span class="modal-result-value">${cout.toLocaleString('fr-FR')}€</span></div>
+            <div class="modal-result-item highlight"><span class="modal-result-label">Jetons obtenus</span><span class="modal-result-value">${formaterK(qte)}</span></div>
+            <div class="modal-result-item"><span class="modal-result-label">Monnaie restante</span><span class="modal-result-value">${reste.toLocaleString('fr-FR')}€</span></div>
+            <div class="modal-result-item"><span class="modal-result-label">Stock après</span><span class="modal-result-value">${formaterK(stock + qte)}</span></div>
         `;
-
-        let state = {
-            type: 'achat',
-            quantite: qteFinale,
-            montant: coutReel,
-            nouveauStock: stock + qteFinale
-        };
-
-        ouvrirModal("Calcul Budget", "💵", "achat", html, state);
+        ouvrirModal("Calcul Budget", html, { type: 'achat', quantite: qte, montant: cout });
     }
 
-    // Clavier
-    document.getElementById('qte-jetons')?.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') calculerJetons('acheter');
-    });
+    // ===== HISTORIQUE =====
+    function ajouterHistorique(texte) {
+        let hist = JSON.parse(localStorage.getItem('jetons-hist') || '[]');
+        hist.unshift({ texte, date: new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}) });
+        if (hist.length > 15) hist.pop();
+        localStorage.setItem('jetons-hist', JSON.stringify(hist));
+        chargerHistorique();
+    }
 
-    document.getElementById('montant-argent')?.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') calculerArgent();
-    });
+    function chargerHistorique() {
+        let hist = JSON.parse(localStorage.getItem('jetons-hist') || '[]');
+        let container = document.getElementById('history-list');
+        container.innerHTML = hist.length ? hist.map(h => `<div class="history-item"><span>${h.texte}</span><span>${h.date}</span></div>`).join('') : '<div style="text-align:center; color:var(--text-muted); padding: 20px;">Aucune transaction récente</div>';
+    }
 
-    document.getElementById('stock-input')?.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') confirmerStock();
-    });
+    function toggleHistory() {
+        document.getElementById('history-container').classList.toggle('active');
+    }
 
-    // Initialisation
-    afficherStock();
+    // Keyboard shortcuts
+    document.addEventListener('keypress', e => {
+        if (e.key === 'Enter') {
+            if (document.getElementById('stock-modal').classList.contains('active')) confirmerStock();
+            if (document.getElementById('username-input') === document.activeElement) connecterRoblox();
+        }
+    });
 </script>
 
 </body>
